@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamManager.API", "ExamManager.API\ExamManager.API.csproj", "{B9C8A52D-9CEC-4BC7-BA02-8C19939D847D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. EntityFramework", "1. EntityFramework", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. DatabaseContext", "2. DatabaseContext", "{F593E7F1-6142-40E9-BC96-ECC410E2D69E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Services", "3. Services", "{09D890CC-0FD9-4250-8CBA-5D9C0F759B4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. WebApi", "4. WebApi", "{B6F0256C-17B4-4B89-B683-03A3A0E0AE8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Presentation", "5. Presentation", "{F7CB7710-4647-485C-94F0-519BDAC32136}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "exam_manager.ui", "exam_manager.ui\", "{26346F4F-7B9A-1427-2833-E336C49AC48F}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_51818"
+		Debug.AspNetCompiler.PhysicalPath = "exam_manager.ui\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51818\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_51818"
+		Release.AspNetCompiler.PhysicalPath = "exam_manager.ui\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51818\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "51818"
+		SlnRelativePath = "exam_manager.ui\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{8B4D82F1-1A38-4CF8-961A-F9EDD5987A28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseContext", "DatabaseContext\DatabaseContext.csproj", "{629FA05D-C929-469A-BF80-9A88C06FB787}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Authentication", "Services.Authentication\Services.Authentication.csproj", "{62B4FA31-4F08-4D0F-9201-CDF450CE4307}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9C8A52D-9CEC-4BC7-BA02-8C19939D847D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C8A52D-9CEC-4BC7-BA02-8C19939D847D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C8A52D-9CEC-4BC7-BA02-8C19939D847D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C8A52D-9CEC-4BC7-BA02-8C19939D847D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26346F4F-7B9A-1427-2833-E336C49AC48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26346F4F-7B9A-1427-2833-E336C49AC48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26346F4F-7B9A-1427-2833-E336C49AC48F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{26346F4F-7B9A-1427-2833-E336C49AC48F}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{8B4D82F1-1A38-4CF8-961A-F9EDD5987A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B4D82F1-1A38-4CF8-961A-F9EDD5987A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B4D82F1-1A38-4CF8-961A-F9EDD5987A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B4D82F1-1A38-4CF8-961A-F9EDD5987A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{629FA05D-C929-469A-BF80-9A88C06FB787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{629FA05D-C929-469A-BF80-9A88C06FB787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{629FA05D-C929-469A-BF80-9A88C06FB787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{629FA05D-C929-469A-BF80-9A88C06FB787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62B4FA31-4F08-4D0F-9201-CDF450CE4307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B4FA31-4F08-4D0F-9201-CDF450CE4307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B4FA31-4F08-4D0F-9201-CDF450CE4307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B4FA31-4F08-4D0F-9201-CDF450CE4307}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B9C8A52D-9CEC-4BC7-BA02-8C19939D847D} = {B6F0256C-17B4-4B89-B683-03A3A0E0AE8E}
+		{26346F4F-7B9A-1427-2833-E336C49AC48F} = {F7CB7710-4647-485C-94F0-519BDAC32136}
+		{8B4D82F1-1A38-4CF8-961A-F9EDD5987A28} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{629FA05D-C929-469A-BF80-9A88C06FB787} = {F593E7F1-6142-40E9-BC96-ECC410E2D69E}
+		{62B4FA31-4F08-4D0F-9201-CDF450CE4307} = {09D890CC-0FD9-4250-8CBA-5D9C0F759B4E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB294EF9-B570-4BE0-BCCC-653A2241AE8A}
+	EndGlobalSection
+EndGlobal
