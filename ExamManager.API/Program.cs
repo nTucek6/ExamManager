@@ -14,6 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Enable CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy => policy.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 //Connection to database -------------------------------------------------------------------------
 builder.Services.AddDbContext<ExamManagerContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString")));
 
@@ -31,6 +40,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Use CORS before controllers
+app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 
