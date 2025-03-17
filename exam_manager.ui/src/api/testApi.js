@@ -4,7 +4,7 @@ export default async function TestApi({setData}) {
         headers: {
             'Content-Type': 'application/json' // Tell the server you're sending JSON
         }},)
-    .then(response => response.text())
-    .then(text => setData(text))
+    .then(response => response.json())
+    .then(json => setData(json))
     .catch(error => console.error(error));
 }

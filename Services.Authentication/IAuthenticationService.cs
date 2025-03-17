@@ -1,8 +1,10 @@
-﻿namespace Services.Authentication
+﻿using Entities;
+
+namespace Services.Authentication
 {
     public interface IAuthenticationService
     {
-       public Task<string> Login();
+       public Task<UsersEntity> Login();
 
     }
 }

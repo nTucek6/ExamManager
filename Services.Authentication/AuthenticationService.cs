@@ -1,4 +1,6 @@
 ﻿using DatabaseContext;
+using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services.Authentication
 {
@@ -10,9 +12,10 @@ namespace Services.Authentication
             database = databaseContext;
         }
 
-        public async Task<string> Login()
+        public async Task<UsersEntity> Login()
         {
-            return "Login";
+            var user = await database.Users.Where(s=> s.Email == "randomGuy@mail.com").SingleOrDefaultAsync();
+            return user;
         }
 
     }

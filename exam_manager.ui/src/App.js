@@ -13,7 +13,7 @@ useEffect(()=>{
 
   return (
     <div className="App">
-      <h1>{data}</h1>
+      <h1>{data.Email}</h1>
     </div>
   );
 }
