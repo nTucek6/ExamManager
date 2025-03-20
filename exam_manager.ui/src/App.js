@@ -1,20 +1,28 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import TestApi from './api/testApi';
+import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import LimitedRoutes from "./utilities/LimitedRoutes";
+
+import Navigation from "./components/NavigationComponent";
+
+import Login from "./pages/LoginPage";
+import Dashboard from "./pages/DashboardPage";
 
 function App() {
-
-  const[data, setData] = useState("");
-
-useEffect(()=>{
-  TestApi({ setData })
-  },[])
-
-
   return (
-    <div className="App">
-      <h1>{data.Email}</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<LimitedRoutes />}>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+
+        <Route element={<><Navigation /></>}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        {/* Routes without navbar */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

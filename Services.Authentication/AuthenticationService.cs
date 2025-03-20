@@ -12,10 +12,10 @@ namespace Services.Authentication
             database = databaseContext;
         }
 
-        public async Task<UsersEntity> Login()
+        public async Task<UsersEntity> Login(UserLoginDTO user)
         {
-            var user = await database.Users.Where(s=> s.Email == "randomGuy@mail.com").SingleOrDefaultAsync();
-            return user;
+            var userDb = await database.Users.Where(s=> s.Email == user.Email).SingleOrDefaultAsync();
+            return userDb;
         }
 
     }

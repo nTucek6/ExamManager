@@ -20,9 +20,9 @@ namespace ExamManager.API.Controllers.Authentication
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(UserLoginDTO user)
         {
-            var result = await _authenticationService.Login();
+            var result = await _authenticationService.Login(user);
             return Ok(result);
         }
 

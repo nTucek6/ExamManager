@@ -4,7 +4,7 @@ namespace Services.Authentication
 {
     public interface IAuthenticationService
     {
-       public Task<UsersEntity> Login();
+       public Task<UsersEntity> Login(UserLoginDTO user);
 
     }
 }
