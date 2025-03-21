@@ -16,7 +16,7 @@ export default function LimitedRoutes() {
     let auth = { 'token': FindToken() }
 
     return (
-        auth.token ? <Outlet /> : <Navigate to="/dashboard" />
+        auth.token ? <Outlet /> : <Navigate to="/" />
     );
 
 }
