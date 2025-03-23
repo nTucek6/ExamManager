@@ -1,7 +1,7 @@
 import { useState } from "react";
 import authenticationService from "../services/authenticationService";
 import { useNavigate } from "react-router";
-
+import "./Login.css";
 export default function Login() {
   const navigate = useNavigate();
 
@@ -18,16 +18,31 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <div>
-        <label>Email:</label>
-        <input type="text" onChange={(d) => setEmail(d.target.value)} />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" onChange={(d) => setPassword(d.target.value)} />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-wrapper">
+      <form onSubmit={handleLogin} className="login-form">
+        <h2>Login</h2>
+        <div className="form-group">
+          <label>Email:</label>
+          <input
+            type="text"
+            onChange={(d) => setEmail(d.target.value)}
+            placeholder="Enter your email"
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            onChange={(d) => setPassword(d.target.value)}
+            placeholder="Enter your password"
+            className="form-input"
+          />
+        </div>
+        <button type="submit" className="login-button">
+          Login
+        </button>
+      </form>
+    </div>
   );
 }
