@@ -3,16 +3,16 @@ import authenticationService from "../services/authenticationService";
 import { useNavigate } from "react-router";
 
 export default function Login() {
-
   const navigate = useNavigate();
 
   const [Email, setEmail] = useState();
   const [Password, setPassword] = useState();
 
-  const handleLogin = async e => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const result = await authenticationService.login(Email, Password);
-    sessionStorage.setItem('token', "4346ghfhzu76");
+    sessionStorage.setItem("token", "4346ghfhzu76");
+    sessionStorage.setItem("email", Email);
     console.log(result);
     navigate(0);
   };
