@@ -10,7 +10,9 @@ namespace DatabaseContext
         }
         
         public DbSet<UsersEntity> Users { get; set; }
-        
+        public DbSet<SubjectsEntity> Subjects { get; set; }
+        public DbSet<ExamsEntity> Exams { get; set; }
+        public DbSet<ExamRegistrationEntity> ExamRegistrations { get; set; }
     }
 }
 

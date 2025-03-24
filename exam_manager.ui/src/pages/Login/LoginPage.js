@@ -14,6 +14,7 @@ export default function Login() {
     const token = await authenticationService.login(Email, Password);
     sessionStorage.setItem("token", token);
     sessionStorage.setItem("email", jwtDecode(token).Email);
+    sessionStorage.setItem("role", jwtDecode(token).Role)
     navigate(0);
   };
 

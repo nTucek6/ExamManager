@@ -1,5 +1,6 @@
 ﻿using DatabaseContext;
 using Entities;
+using Entities.Enum;
 using ExamManager.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -34,6 +35,7 @@ namespace Services.Authentication
             {
                 Email = user.Email,
                 PasswordHash = passwordHash,
+                RoleId = UserRoleEnum.Student,
             });
 
             await database.SaveChangesAsync();
@@ -62,7 +64,8 @@ namespace Services.Authentication
             var token = GenerateToken(new GenerateToken
             {
                 Id = userDb.Id,
-                Email = userDb.Email
+                Email = userDb.Email,
+                Role = userDb.RoleId,
             });
             return token;
         }
@@ -78,7 +81,8 @@ namespace Services.Authentication
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim("Id", user.Id.ToString()),
-                    new Claim("Email", user.Email)
+                    new Claim("Email", user.Email),
+                    new Claim("Role", user.Role.ToString()),
                 }),
                 //Expires = DateTime.UtcNow.AddDays(jwtConfig.AccessTokenExpiration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

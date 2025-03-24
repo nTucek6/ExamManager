@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Entities.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entities
 {
@@ -6,7 +7,8 @@ namespace Entities
     {
         [Key]
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public required string Email { get; set; }
+        public required string PasswordHash { get; set; }
+        public required UserRoleEnum RoleId { get; set; }
     }
 }
