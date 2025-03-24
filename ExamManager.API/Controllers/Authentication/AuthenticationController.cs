@@ -26,5 +26,12 @@ namespace ExamManager.API.Controllers.Authentication
             return Ok(result);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterUserDTO user)
+        {
+            var result = await _authenticationService.Register(user);
+            return Ok(result);
+        }
+
     }
 }
