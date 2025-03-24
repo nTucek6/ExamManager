@@ -1,4 +1,5 @@
 using DatabaseContext;
+using ExamManager.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Services.Authentication;
 
@@ -29,6 +30,13 @@ builder.Services.AddCors(options =>
 
 //Connection to database -------------------------------------------------------------------------
 builder.Services.AddDbContext<ExamManagerContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString")));
+
+//Configuration -------------------------------------------------------------------------
+
+var jwtConfig = builder.Configuration.GetSection("JwtConfiguration").Get<JwtConfiguration>();
+
+builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
+
 
 
 //Services -------------------------------------------------------------------------

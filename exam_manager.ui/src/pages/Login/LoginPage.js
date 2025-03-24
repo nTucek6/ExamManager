@@ -1,6 +1,7 @@
 import { useState } from "react";
-import authenticationService from "../services/authenticationService";
+import authenticationService from "../../services/authenticationService";
 import { useNavigate } from "react-router";
+import { jwtDecode } from "jwt-decode";
 import "./Login.css";
 export default function Login() {
   const navigate = useNavigate();
@@ -10,10 +11,9 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const result = await authenticationService.login(Email, Password);
-    sessionStorage.setItem("token", "4346ghfhzu76");
-    sessionStorage.setItem("email", Email);
-    console.log(result);
+    const token = await authenticationService.login(Email, Password);
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("email", jwtDecode(token).Email);
     navigate(0);
   };
 
