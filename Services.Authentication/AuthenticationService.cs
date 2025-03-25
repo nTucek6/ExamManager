@@ -35,6 +35,8 @@ namespace Services.Authentication
             {
                 Email = user.Email,
                 PasswordHash = passwordHash,
+                Name = user.Name,
+                Surname = user.Surname,
                 RoleId = UserRoleEnum.Student,
             });
 

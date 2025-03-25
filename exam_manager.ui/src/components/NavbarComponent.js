@@ -6,6 +6,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     if (sessionStorage.getItem("token") !== null) {
@@ -15,6 +16,7 @@ export default function Navbar() {
         const username = email.split("@")[0];
         setUsername(username);
       }
+      setUserRole(sessionStorage.getItem("role"));
     }
   }, []);
 
@@ -58,9 +60,33 @@ export default function Navbar() {
           </ul>
         </div>
       </nav>
-      <div className="container">
-        <Outlet />
-      </div>
+        {isAuthenticated ? (
+          <nav className="sidebar">
+            <div className="sidebar-container">
+              {userRole === "Professor" ? (
+                <ul className="nav-links">
+                  <li>
+                    <Link to="/addexam">Add exams</Link>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="nav-links sidebar-links">
+                  <li>
+                    <Link to="/exams">View exams</Link>
+                  </li>
+                  <li>
+                    <Link to="/exams">View exams</Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+          </nav>
+        ) : (
+          <></>
+        )}
+        <div className={isAuthenticated ? "container" : ""}>
+          <Outlet />
+        </div>
     </>
   );
 }

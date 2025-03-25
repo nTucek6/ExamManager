@@ -60,6 +60,30 @@
   background-color: #cc0000;
 }
 
+
+/* ----------------------Navbar left ------------------------------------------------------------ */
+
+
+.sidebar-container {
+  width: 250px;
+  background-color: #222;
+  height: 100%;
+  margin: 0;
+  position: fixed;
+  left:0;
+}
+
+.sidebar-links {
+  flex-direction: column;
+  gap: 0;
+}
+
+.sidebar-links li {
+  margin: 5px 0;
+}
+
+/* --------------- works when user is auth -------------------------------------------------- */
 .container {
   padding: 0 20px 0 20px;
+  margin-left: 250px;
 }

@@ -9,10 +9,11 @@ const authenticationService = {
         Email,
         Password,
       });
-      const data = response.data;
+      const data = response;
       return data;
     } catch (error) {
-      throw error.response?.data || "Login failed";
+      return error.response.data;
+      //throw error.response?.data || "Login failed";
     }
   },
   register: async (Email, Password, ConfirmPassword) => {

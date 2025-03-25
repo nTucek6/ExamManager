@@ -1,7 +1,11 @@
 using DatabaseContext;
 using ExamManager.Configuration;
+using ExamManager.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Services.Authentication;
+using System.Net;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +42,8 @@ var jwtConfig = builder.Configuration.GetSection("JwtConfiguration").Get<JwtConf
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtConfiguration"));
 
 
+builder.Services.AddLogging();
+builder.Services.AddTransient<Middleware>();
 
 //Services -------------------------------------------------------------------------
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
@@ -53,10 +59,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 // Use CORS before controllers
 app.UseCors("AllowReactApp");
 
+app.UseMiddleware<Middleware>();
+
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthorization();
 

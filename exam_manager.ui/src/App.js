@@ -6,6 +6,8 @@ import Login from "./pages/Login/LoginPage";
 import Dashboard from "./pages/Home/DashboardPage";
 import CheckUserLogin from "./utilities/CheckUserLogin";
 import Exams from "./pages/Exams/ExamsPage";
+import CheckProfessorRole from "./utilities/CheckProfessorRole";
+import AddExam from "./pages/AddExam/AddExamPage.js";
 
 function App() {
   return (
@@ -17,6 +19,10 @@ function App() {
           <Route element={<CheckUserLogin />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/exams" element={<Exams />} />
+
+            <Route element={<CheckProfessorRole />}>
+              <Route path="/addexam" element={<AddExam />} />
+            </Route>
           </Route>
 
           {/* If user is logged in, restrict these routes */}

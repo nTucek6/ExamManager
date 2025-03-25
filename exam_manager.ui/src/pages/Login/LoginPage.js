@@ -11,11 +11,18 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const token = await authenticationService.login(Email, Password);
-    sessionStorage.setItem("token", token);
-    sessionStorage.setItem("email", jwtDecode(token).Email);
-    sessionStorage.setItem("role", jwtDecode(token).Role)
-    navigate(0);
+    const result = await authenticationService.login(Email, Password);
+    if(result.status === 200)
+    {
+      sessionStorage.setItem("token", result.data);
+      sessionStorage.setItem("email", jwtDecode(result.data).Email);
+      sessionStorage.setItem("role", jwtDecode(result.data).Role)
+      navigate(0);
+    }
+    else if(result.status === 500)
+    {
+      alert(result.Message);
+    }
   };
 
   return (
