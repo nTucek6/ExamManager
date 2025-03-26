@@ -13,6 +13,7 @@ namespace DatabaseContext
         public DbSet<SubjectsEntity> Subjects { get; set; }
         public DbSet<ExamsEntity> Exams { get; set; }
         public DbSet<ExamRegistrationEntity> ExamRegistrations { get; set; }
+        public DbSet<StudentSubjectsEntity> StudentSubjects { get; set; }
     }
 }
 

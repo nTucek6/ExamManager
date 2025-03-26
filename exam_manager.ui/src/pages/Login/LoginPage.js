@@ -16,6 +16,7 @@ export default function Login() {
     {
       sessionStorage.setItem("token", result.data);
       sessionStorage.setItem("email", jwtDecode(result.data).Email);
+      sessionStorage.setItem("userId", jwtDecode(result.data).Id);
       sessionStorage.setItem("role", jwtDecode(result.data).Role)
       navigate(0);
     }

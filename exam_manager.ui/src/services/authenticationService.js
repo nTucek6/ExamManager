@@ -5,10 +5,16 @@ const API_URL = process.env.REACT_APP_API_URL;
 const authenticationService = {
   login: async (Email, Password) => {
     try {
-      const response = await axios.post(`${API_URL}/Authentication/Login`, {
-        Email,
-        Password,
+      const response = await axios({
+        method: "post",
+        url: `${API_URL}/Authentication/Login`,
+        headers: { "Content-Type": "application/json" },
+        data: {
+          Email: Email,
+          Password: Password,
+        },
       });
+
       const data = response;
       return data;
     } catch (error) {
@@ -16,20 +22,24 @@ const authenticationService = {
       //throw error.response?.data || "Login failed";
     }
   },
-  register: async (Email, Password, ConfirmPassword) => {
+  register: async (Email, Password) => {
     try {
-      const response = await axios.post(`${API_URL}/Authentication/Register`, {
-        Email,
-        Password,
-        ConfirmPassword,
+      const response = await axios({
+        method: "post",
+        url: `${API_URL}/Authentication/Register`,
+        headers: { "Content-Type": "application/json" },
+        data: {
+          Email: Email,
+          Password: Password,
+        },
       });
+
       const data = response.data;
       return data;
     } catch (error) {
       throw error.response?.data || "Register failed";
     }
   },
-
 };
 
 export default authenticationService;

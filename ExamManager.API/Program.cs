@@ -4,6 +4,7 @@ using ExamManager.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Services.Authentication;
+using Services.Exam;
 using System.Net;
 using System.Text.Json;
 
@@ -47,6 +48,7 @@ builder.Services.AddTransient<Middleware>();
 
 //Services -------------------------------------------------------------------------
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+builder.Services.AddTransient<IExamService, ExamService>();
 
 
 var app = builder.Build();
