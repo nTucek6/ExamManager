@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Navbar.css";
+import GetPage from "../utilities/GetPage";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -60,33 +61,43 @@ export default function Navbar() {
           </ul>
         </div>
       </nav>
+      {isAuthenticated ? (
+        <nav className="sidebar">
+          <div className="sidebar-container">
+            {userRole === "Professor" ? (
+              <ul className="nav-links">
+                <li>
+                  <Link to="/addexam">Dodaj ispitni rok</Link>
+                </li>
+              </ul>
+            ) : (
+              <ul className="nav-links sidebar-links">
+                <li>
+                  <Link to="/exams">Pregled upisanih ispita</Link>
+                </li>
+                <li>
+                  <Link to="/exams">Prijava ispita</Link>
+                </li>
+                <li>
+                  <Link to="/exams">Odjava ispita</Link>
+                </li>
+              </ul>
+            )}
+          </div>
+        </nav>
+      ) : (
+        <></>
+      )}
+      <div className={isAuthenticated ? "container" : ""}>
         {isAuthenticated ? (
-          <nav className="sidebar">
-            <div className="sidebar-container">
-              {userRole === "Professor" ? (
-                <ul className="nav-links">
-                  <li>
-                    <Link to="/addexam">Add exams</Link>
-                  </li>
-                </ul>
-              ) : (
-                <ul className="nav-links sidebar-links">
-                  <li>
-                    <Link to="/exams">View exams</Link>
-                  </li>
-                  <li>
-                    <Link to="/exams">View exams</Link>
-                  </li>
-                </ul>
-              )}
-            </div>
-          </nav>
+          <div id="page-name-container">
+            <GetPage />
+          </div>
         ) : (
           <></>
         )}
-        <div className={isAuthenticated ? "container" : ""}>
-          <Outlet />
-        </div>
+        <Outlet />
+      </div>
     </>
   );
 }

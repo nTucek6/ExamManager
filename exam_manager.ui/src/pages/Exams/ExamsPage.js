@@ -1,37 +1,52 @@
 import "./Exams.css";
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
+
 import examService from "../../services/examService";
 
 export default function Exams() {
   const [studentExams, setStudentExams] = useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     const result = await examService.getStudentExams(
       Number(sessionStorage.getItem("userId"))
     );
     setStudentExams(result.data);
+    setLoading(false);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <>
-      {studentExams.length > 0 ? (
+    <div id="exam-container">
+      {loading ? (
+        <>Loading...</>
+      ) : studentExams.length > 0 ? (
         studentExams.map((exam) => {
           return (
             <ul>
               <li>{exam.SubjectName}</li>
-              <li>Datum roka: {exam.DeadlineDate}</li>
-              <li>Prijave do: {exam.ApplicationsDate}</li>
-              <li>Odjave do: {exam.CheckOutDate}</li>
+              <li>
+                Datum roka:{" "}
+                {format(new Date(exam.DeadlineDate), "dd.MM.yyyy HH:mm:ss")}
+              </li>
+              <li>
+                Prijave do:{" "}
+                {format(new Date(exam.ApplicationsDate), "dd.MM.yyyy HH:mm:ss")}
+              </li>
+              <li>
+                Odjave do:{" "}
+                {format(new Date(exam.CheckOutDate), "dd.MM.yyyy HH:mm:ss")}
+              </li>
             </ul>
           );
         })
       ) : (
-        <h1>No exams</h1>
+        <h1>Student trenutno nema upisanih ispita</h1>
       )}
-    </>
+    </div>
   );
 }

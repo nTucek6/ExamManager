@@ -13,12 +13,6 @@ namespace ExamManager.API.Controllers.Authentication
         _authenticationService = authenticationService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Test()
-        {
-            return Ok("Hello there");
-        }
-
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDTO user)
         {
