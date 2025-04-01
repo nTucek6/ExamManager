@@ -22,7 +22,7 @@ const authenticationService = {
       //throw error.response?.data || "Login failed";
     }
   },
-  register: async (Email, Password) => {
+  register: async (Email, Password, Name, Surname) => {
     try {
       const response = await axios({
         method: "post",
@@ -31,10 +31,12 @@ const authenticationService = {
         data: {
           Email: Email,
           Password: Password,
+          Name: Name,
+          Surname: Surname,
         },
       });
 
-      const data = response.data;
+      const data = response;
       return data;
     } catch (error) {
       throw error.response?.data || "Register failed";

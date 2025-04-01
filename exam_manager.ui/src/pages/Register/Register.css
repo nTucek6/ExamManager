@@ -1,4 +1,5 @@
-.outer-container{
+/* Register.css */
+.outer-container {
   display: block;
 }
 
@@ -76,24 +77,19 @@ label {
   }
 }
 
-.login-error {
+.register-error {
   color: red;
   font-size: small;
   margin: 5px 0 0;
 }
 
-.login-link > a {
+.register-link > a {
   text-decoration: none;
   color: black;
   font-size: 1rem;
   transition: color 0.2s ease-in-out;
 }
 
-.login-link > a:hover {
+.register-link > a:hover {
   color: lightblue;
-}
-
-.login-link > #forgot-password{
-  font-size: 0.8rem;
-  margin: 0 0 5px 0;
 }
