@@ -9,6 +9,7 @@ import CheckUserLogin from "./utilities/CheckUserLogin";
 import Exams from "./pages/Exams/ExamsPage";
 import CheckProfessorRole from "./utilities/CheckProfessorRole";
 import AddExam from "./pages/AddExam/AddExamPage.js";
+import ChangePasswordPage from "./pages/ChangePassword/ChangePassword";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Navbar />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/exams" element={<Exams />} />
+            <Route path="/change-password" element={<ChangePasswordPage />} />
 
             {/* Professor routes */}
             <Route element={<CheckProfessorRole />}>

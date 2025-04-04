@@ -107,5 +107,25 @@ namespace Services.Authentication
             }
             return valueHash;
         }
+
+        public async Task ChangePassword(int userId, ChangePasswordDTO model)
+        {
+            var user = await database.Users.FindAsync(userId);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            string oldPasswordHash = GenerateHash(model.OldPassword);
+            if (user.PasswordHash != oldPasswordHash)
+            {
+                throw new Exception("Old password is incorrect");
+            }
+
+            user.PasswordHash = GenerateHash(model.NewPassword);
+            await database.SaveChangesAsync();
+        }
+
+
     }
 }

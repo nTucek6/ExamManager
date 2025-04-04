@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Authentication;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ExamManager.API.Controllers.Authentication
 {
@@ -26,6 +27,53 @@ namespace ExamManager.API.Controllers.Authentication
             var result = await _authenticationService.Register(user);
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDTO model)
+        {
+            try
+            {
+                // Dohvati token iz Authorization headera
+                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+                // Ekstraktiraj korisnički ID iz tokena
+                var userId = GetUserIdFromToken(token);
+
+                if (userId == 0)
+                {
+                    return Unauthorized("Invalid token");
+                }
+
+                // Pozovi servis za promjenu lozinke
+                await _authenticationService.ChangePassword(userId, model);
+                return Ok("Password changed successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // Metoda za ekstrakciju ID-a iz JWT tokena
+        private int GetUserIdFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            // Pretpostavljamo da je 'Id' claim spremljen u tokenu
+            var userIdClaim = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "Id");
+
+            if (userIdClaim == null)
+                return 0;
+
+            if (int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return userId;
+            }
+
+            return 0;
+        }
+
 
     }
 }

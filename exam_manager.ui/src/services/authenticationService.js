@@ -42,6 +42,25 @@ const authenticationService = {
       throw error.response?.data || "Register failed";
     }
   },
+    changePassword: async (oldPassword, newPassword) => {
+        try {
+            const token = sessionStorage.getItem("token");
+            const response = await axios.post(
+                `${API_URL}/Authentication/ChangePassword`,
+                { oldPassword, newPassword },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    },
+
 };
 
 export default authenticationService;

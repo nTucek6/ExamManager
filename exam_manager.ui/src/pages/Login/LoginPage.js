@@ -33,6 +33,10 @@ export default function Login() {
       sessionStorage.setItem("userId", jwtDecode(result.data).Id);
       sessionStorage.setItem("role", jwtDecode(result.data).Role);
       navigate("/");
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        console.log(jwtDecode(token));
+      }
     } else if (result.status === 500) {
       alert(result.Message);
     }
