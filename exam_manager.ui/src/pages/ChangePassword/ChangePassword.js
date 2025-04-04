@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import authenticationService from "../../services/authenticationService";
+import "./ChangePassword.css";
 
 const ChangePasswordPage = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -27,9 +28,9 @@ const ChangePasswordPage = () => {
   };
 
   return (
-    <div>
-      <h2>Change Password</h2>
-      <form onSubmit={handleChangePassword}>
+    <div className="change-password-container">
+      <form className="change-password-form" onSubmit={handleChangePassword}>
+        <h2>Change Password</h2>
         <input
           type="password"
           placeholder="Old Password"
@@ -52,8 +53,8 @@ const ChangePasswordPage = () => {
           required
         />
         <button type="submit">Change Password</button>
+        {message && <p>{message}</p>}
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 };

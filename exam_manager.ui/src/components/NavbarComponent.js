@@ -27,9 +27,11 @@ export default function Navbar() {
     navigate("/login");
   };
 
+  const handleChangePassword = () => {
+  };
+
   return (
     <>
-      {" "}
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="logo">
@@ -46,6 +48,14 @@ export default function Navbar() {
               <>
                 <li>
                   <span>Hello, {username}</span> {/* Greet the user */}
+                </li>
+                <li>
+                  <button
+                    className="change-password-button"
+                    onClick={handleChangePassword}
+                  >
+                    Change Password
+                  </button>
                 </li>
                 <li>
                   <button className="logout-button" onClick={handleLogout}>
