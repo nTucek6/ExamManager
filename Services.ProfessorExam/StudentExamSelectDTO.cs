@@ -1,7 +1,7 @@
 ﻿
 namespace Services.ProfessorExam
 {
-    public class StudentExamDTO
+    public class StudentExamSelectDTO
     {
         public string Email { get; set; }
         public string Name { get; set; }

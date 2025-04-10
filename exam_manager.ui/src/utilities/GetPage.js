@@ -9,7 +9,15 @@ export default function GetPage() {
   const isHome = !!matchPath(location.pathname, "/");
   const isExams = !!matchPath(location.pathname, "/exams");
 
-  //Professor pages
+  //Student pages -----------------------------------------------------------------------------
+  
+  const isExamsRegistration = !!matchPath(location.pathname, "/register-exam");
+
+
+
+
+
+  //Professor pages ---------------------------------------------------------------------------
   const isProfessorExams = !!matchPath(location.pathname, "/exams-professor");
   const isProfessorCreateExam = !!matchPath(location.pathname, "/create-exam");
   const isProfessorCreateExamWithParams = !!matchPath(
@@ -34,5 +42,7 @@ export default function GetPage() {
     return <h3>Ažuriranje ispitnog roka</h3>;
   } else if (isExamStudentWithParams) {
     return <h3>Ispis studenata za ispitni rok</h3>;
+  } else if (isExamsRegistration) {
+    return <h3>Prijava ispita</h3>
   }
 }

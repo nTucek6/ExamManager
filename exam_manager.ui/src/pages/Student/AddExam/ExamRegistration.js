@@ -1,20 +1,18 @@
-import "./Exams.css";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { ClipLoader } from "react-spinners";
 
 import studentExamService from "../../../services/studentExamService";
 
-export default function Exams() {
-  const [studentExams, setStudentExams] = useState([]);
+export default function ExamRegistration() {
+  const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
-    const result = await studentExamService.getStudentExams(
+    const result = await studentExamService.getExamsForRegister(
       Number(sessionStorage.getItem("userId"))
     );
-    
-    setStudentExams(result.data);
+    setExams(result.data);
     setLoading(false);
   };
 
@@ -22,18 +20,20 @@ export default function Exams() {
     fetchData();
   }, []);
 
-
-  const handleDeleteExam = async (examId) =>{
-    await studentExamService.deleteStudentExam(Number(sessionStorage.getItem("userId")), examId)
+  const handleExamRegister = async (examId) => {
+    await studentExamService.registerStudentExam(
+      Number(sessionStorage.getItem("userId")),
+      examId
+    );
     fetchData();
-  }
+  };
 
   return (
     <div id="exam-container">
       {loading ? (
-         <ClipLoader />
-      ) : studentExams.length > 0 ? (
-        studentExams.map((exam) => {
+        <ClipLoader />
+      ) : exams.length > 0 ? (
+        exams.map((exam) => {
           return (
             <ul key={exam.ExamId}>
               <li>{exam.SubjectName}</li>
@@ -49,12 +49,17 @@ export default function Exams() {
                 Odjave do:{" "}
                 {format(new Date(exam.CheckOutDate), "dd.MM.yyyy HH:mm:ss")}
               </li>
-              <button type="button" onClick={() => handleDeleteExam(exam.ExamId)}>Odjavi ispit</button>
+              <button
+                type="button"
+                onClick={() => handleExamRegister(exam.ExamId)}
+              >
+                Prijavi ispit
+              </button>
             </ul>
           );
         })
       ) : (
-        <h1>Student trenutno nema upisanih ispita</h1>
+        <h1>Student trenutno nema mogućnost upisati ispite</h1>
       )}
     </div>
   );

@@ -150,11 +150,11 @@ namespace Services.ProfessorExam
             return subjects;
         }
 
-        public async Task<List<StudentExamDTO>> GetProfessorExamStudents(int ExamId)
+        public async Task<List<StudentExamSelectDTO>> GetProfessorExamStudents(int ExamId)
         {
             var exam = await database.Exams.Where(q => q.Id == ExamId).FirstOrDefaultAsync();
 
-            List<StudentExamDTO> students = new List<StudentExamDTO>();
+            List<StudentExamSelectDTO> students = new List<StudentExamSelectDTO>();
 
             if(exam != null)
             {
@@ -167,7 +167,7 @@ namespace Services.ProfessorExam
                         var student = await database.Users.Where(q => q.Id == registeredExam.StudentId).FirstOrDefaultAsync();
                         if(student != null)
                         {
-                            students.Add(new StudentExamDTO { Email = student.Email, Name = student.Name, Surname = student.Surname});
+                            students.Add(new StudentExamSelectDTO { Email = student.Email, Name = student.Name, Surname = student.Surname});
                         }
                     }
                 }

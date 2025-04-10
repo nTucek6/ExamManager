@@ -9,7 +9,7 @@ import Dashboard from "./pages/Home/DashboardPage";
 import CheckUserLogin from "./utilities/CheckUserLogin";
 import Exams from "./pages/Student/Exams/ExamsPage";
 import CheckProfessorRole from "./utilities/CheckProfessorRole";
-import AddExam from "./pages/Student/AddExam/AddExamPage.js";
+import ExamRegistration from "./pages/Student/AddExam/ExamRegistration.js";
 import ChangePasswordPage from "./pages/Auth/ChangePassword/ChangePassword.js";
 import CreateExam from "./pages/Professor/CreateExam/CreateExam.js";
 import CheckStudentRole from "./utilities/CheckStudentRole.js";
@@ -30,7 +30,7 @@ function App() {
             {/* Student routes */}
             <Route element={<CheckStudentRole />}>
             <Route path="/exams" element={<Exams />} />
-            <Route path="/addexam" element={<AddExam />} />
+            <Route path="/register-exam" element={<ExamRegistration />} />
             </Route>
 
 

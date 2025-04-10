@@ -88,7 +88,7 @@ export default function Navbar() {
                   <Link to="/exams">Pregled upisanih ispita</Link>
                 </li>
                 <li>
-                  <Link to="/exams">Prijava ispita</Link>
+                  <Link to="/register-exam">Prijava ispita</Link>
                 </li>
                 <li>
                   <Link to="/exams">Odjava ispita</Link>

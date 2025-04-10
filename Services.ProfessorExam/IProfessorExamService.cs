@@ -8,7 +8,7 @@
         public Task DeleteExamPeriod(int ExamId);
         public Task<ProfessorExamsDTO> GetExamPeriod(int ExamId);
         public Task<List<SelectSubjectDTO>> GetProfessorSubjects(int ProfessorId);
-        public Task<List<StudentExamDTO>> GetProfessorExamStudents(int ExamId);
+        public Task<List<StudentExamSelectDTO>> GetProfessorExamStudents(int ExamId);
 
     }
 }
