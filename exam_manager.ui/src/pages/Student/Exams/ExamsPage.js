@@ -1,8 +1,9 @@
 import "./Exams.css";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { ClipLoader } from "react-spinners";
 
-import examService from "../../services/examService";
+import examService from "../../../services/examService";
 
 export default function Exams() {
   const [studentExams, setStudentExams] = useState([]);
@@ -23,7 +24,7 @@ export default function Exams() {
   return (
     <div id="exam-container">
       {loading ? (
-        <>Loading...</>
+         <ClipLoader />
       ) : studentExams.length > 0 ? (
         studentExams.map((exam) => {
           return (

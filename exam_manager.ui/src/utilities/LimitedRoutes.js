@@ -3,7 +3,6 @@ import { Outlet, Navigate } from "react-router-dom";
 
 function FindToken() {
     const token = sessionStorage.getItem("token");
-    //const userToken = JSON.parse(token);
     if (token === null) {
         return true;
     }

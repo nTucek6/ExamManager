@@ -1,0 +1,21 @@
+
+#student-exam-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#student-exam-container > ul{
+    list-style: none;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+#student-exam-container ul > li:first-child
+{
+    margin-bottom: 10px;
+}
+
+#student-exam-container > ul:last-child{
+    margin-right: 0;
+}

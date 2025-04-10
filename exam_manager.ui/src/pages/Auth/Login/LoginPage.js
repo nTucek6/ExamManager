@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import authenticationService from "../../services/authenticationService";
+import authenticationService from "../../../services/authenticationService";
 import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import "./Login.css";
@@ -38,7 +38,9 @@ export default function Login() {
         console.log(jwtDecode(token));
       }
     } else if (result.status === 500) {
+      setIsLoginCompleted(false);
       alert(result.Message);
+
     }
   };
 
@@ -69,8 +71,8 @@ export default function Login() {
   };
 
   return (
-    <div className="login-wrapper">
-      <form onSubmit={handleSubmit} className="login-form">
+    <div className="custom-wrapper">
+      <form onSubmit={handleSubmit} className="custom-form">
         <h2>Login</h2>
         <div className="form-group">
           <label>Email:</label>
@@ -82,7 +84,7 @@ export default function Login() {
             placeholder="Enter your email"
             className="form-input"
           />
-          <span className="login-error">{formErrors.Email}</span>
+          <span className="form-error">{formErrors.Email}</span>
         </div>
         <div className="form-group">
           <label>Password:</label>
@@ -94,9 +96,9 @@ export default function Login() {
             placeholder="Enter your password"
             className="form-input"
           />
-          <span className="login-error">{formErrors.Password}</span>
+          <span className="form-error">{formErrors.Password}</span>
         </div>
-        <div className="form-group login-link">
+        <div className="form-group form-link">
           <Link to="" id="forgot-password">
             Zaboravili ste lozinku?
           </Link>
@@ -106,7 +108,7 @@ export default function Login() {
         {isLoginCompleted ? (
           <BarLoader />
         ) : (
-          <button type="submit" className="login-button">
+          <button type="submit" className="form-button">
             Login
           </button>
         )}

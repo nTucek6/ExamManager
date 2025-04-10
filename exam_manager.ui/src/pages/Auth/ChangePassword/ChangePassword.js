@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import authenticationService from "../../services/authenticationService";
+import authenticationService from "../../../services/authenticationService";
 import "./ChangePassword.css";
 
 const ChangePasswordPage = () => {

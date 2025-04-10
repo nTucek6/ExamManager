@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Services.ProfessorExam;
 
 namespace ExamManager.API.Controllers.ProfessorExam
@@ -29,7 +30,7 @@ namespace ExamManager.API.Controllers.ProfessorExam
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateExamPeriod(ProfessorExamsDTO exam)
+        public async Task<IActionResult> UpdateExamPeriod(NewExamDTO exam)
         {
             await _professorExamService.UpdateExamPeriod(exam);
             return Ok();
@@ -40,6 +41,27 @@ namespace ExamManager.API.Controllers.ProfessorExam
         {
             await _professorExamService.DeleteExamPeriod(examId);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetExamPeriod(int ExamId)
+        {
+            var exam = await _professorExamService.GetExamPeriod(ExamId);
+            return Ok(exam);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProfessorSubjects(int ProfessorId)
+        {
+            var subjects = await _professorExamService.GetProfessorSubjects(ProfessorId);
+            return Ok(subjects);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProfessorExamStudents(int ExamId)
+        {
+            var students = await _professorExamService.GetProfessorExamStudents(ExamId);
+            return Ok(students);
         }
 
 

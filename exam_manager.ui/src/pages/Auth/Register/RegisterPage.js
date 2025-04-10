@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 
-import authenticationService from "../../services/authenticationService";
+import authenticationService from "../../../services/authenticationService";
 import { BarLoader } from "react-spinners";
 
 export default function Register() {
@@ -77,8 +77,8 @@ export default function Register() {
   };
 
   return (
-    <div className="login-wrapper">
-      <form className="login-form" onSubmit={handleSubmit}>
+    <div className="custom-wrapper">
+      <form className="custom-form" onSubmit={handleSubmit}>
         <h2>Registracija u sustav</h2>
         <div className="form-group">
           <label>E-mail:</label>
@@ -90,7 +90,7 @@ export default function Register() {
             placeholder="Unesite email"
             className="form-input"
           />
-          <span className="register-error">{formErrors.Email}</span>
+          <span className="form-error">{formErrors.Email}</span>
         </div>
         <div className="form-group">
           <label>Lozinka:</label>
@@ -102,7 +102,7 @@ export default function Register() {
             placeholder="Unesite svoju lozinku"
             className="form-input"
           />
-          <span className="register-error">{formErrors.Password}</span>
+          <span className="form-error">{formErrors.Password}</span>
         </div>
         <div className="form-group">
           <label>Potvrdite lozinku:</label>
@@ -125,7 +125,7 @@ export default function Register() {
             placeholder="Unesite svoje ime"
             className="form-input"
           />
-          <span className="register-error">{formErrors.Name}</span>
+          <span className="form-error">{formErrors.Name}</span>
         </div>
         <div className="form-group">
           <label>Unesite svoje prezime:</label>
@@ -137,16 +137,16 @@ export default function Register() {
             placeholder="Unesite svoje prezime"
             className="form-input"
           />
-          <span className="register-error">{formErrors.Surname}</span>
+          <span className="form-error">{formErrors.Surname}</span>
         </div>
-        <div className="form-group register-link">
+        <div className="form-group form-link">
           <Link to="/login">Imate već račun - povratak na prijavu</Link>
         </div>
 
         {isRegisterCompleted ? (
           <BarLoader />
         ) : (
-          <button type="submit" className="login-button">
+          <button type="submit" className="form-button">
             Registracija
           </button>
         )}

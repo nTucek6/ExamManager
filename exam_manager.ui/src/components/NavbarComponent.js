@@ -27,8 +27,7 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  const handleChangePassword = () => {
-  };
+  const handleChangePassword = () => {};
 
   return (
     <>
@@ -75,9 +74,12 @@ export default function Navbar() {
         <nav className="sidebar">
           <div className="sidebar-container">
             {userRole === "Professor" ? (
-              <ul className="nav-links">
+              <ul className="nav-links sidebar-links">
                 <li>
-                  <Link to="/addexam">Dodaj ispitni rok</Link>
+                  <Link to="/exams-professor">Pregled ispitnih rokova</Link>
+                </li>
+                <li>
+                  <Link to="/create-exam">Dodaj ispitni rok</Link>
                 </li>
               </ul>
             ) : (

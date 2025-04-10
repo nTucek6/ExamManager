@@ -1,0 +1,23 @@
+/* ProfessorExams.css */
+
+#exam-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#exam-container > ul{
+    list-style: none;
+    border: 1px solid black;
+    padding: 20px;
+    margin-right: 5px;
+}
+
+#exam-container ul > li:first-child
+{
+    margin-bottom: 10px;
+}
+
+#exam-container > ul:last-child{
+    margin-right: 0;
+}
