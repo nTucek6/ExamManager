@@ -39,6 +39,12 @@ namespace ExamManager.API.Controllers.Exam
             var exams = await _examService.GetExamsForRegister(StudentId);
             return Ok(exams);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllStudentExams(int StudentId)
+        {
+            var exams = await _examService.GetAllStudentExams(StudentId);
+            return Ok(exams);
+        }
 
     }
 }

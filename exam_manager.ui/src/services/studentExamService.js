@@ -55,14 +55,30 @@ const studentExamService = {
     }
   },
 
-  getExamsForRegister: async (StudentId, ExamId) => {
+  getExamsForRegister: async (StudentId) => {
     try {
       const response = await axios({
         method: "get",
         url: `${API_URL}/${STUDENT_CONTROLLER}/GetExamsForRegister`,
         headers: { "Content-Type": "application/json" },
         params: {
-          ExamId: ExamId,
+          StudentId: StudentId,
+        },
+      });
+      const data = response;
+      return data;
+    } catch (error) {
+      return error.response.data;
+    }
+  },
+  
+  getAllStudentExams: async (StudentId) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${API_URL}/${STUDENT_CONTROLLER}/GetAllStudentExams`,
+        headers: { "Content-Type": "application/json" },
+        params: {
           StudentId: StudentId,
         },
       });

@@ -15,6 +15,7 @@ import CreateExam from "./pages/Professor/CreateExam/CreateExam.js";
 import CheckStudentRole from "./utilities/CheckStudentRole.js";
 import ProfessorExams from "./pages/Professor/ProfessorExams/ProfessorExams.js";
 import ExamStudents from "./pages/Professor/ExamStudents/ExamStudents.js";
+import AllExams from "./pages/Student/AllExams/AllExams.js";
 
 function App() {
   return (
@@ -31,8 +32,8 @@ function App() {
             <Route element={<CheckStudentRole />}>
             <Route path="/exams" element={<Exams />} />
             <Route path="/register-exam" element={<ExamRegistration />} />
+            <Route path="/all-exams" element={<AllExams />} />
             </Route>
-
 
             {/* Professor routes */}
             <Route element={<CheckProfessorRole />}>

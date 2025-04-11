@@ -12,7 +12,7 @@ export default function GetPage() {
   //Student pages -----------------------------------------------------------------------------
   
   const isExamsRegistration = !!matchPath(location.pathname, "/register-exam");
-
+  const isAllExams = !!matchPath(location.pathname, "/all-exams");
 
 
 
@@ -44,5 +44,7 @@ export default function GetPage() {
     return <h3>Ispis studenata za ispitni rok</h3>;
   } else if (isExamsRegistration) {
     return <h3>Prijava ispita</h3>
+  } else if (isAllExams) {
+    return <h3>Pregled svih rokova</h3>
   }
 }

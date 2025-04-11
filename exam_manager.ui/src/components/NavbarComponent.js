@@ -85,13 +85,13 @@ export default function Navbar() {
             ) : (
               <ul className="nav-links sidebar-links">
                 <li>
+                  <Link to="/all-exams">Pregled svih rokova</Link>
+                </li>
+                <li>
                   <Link to="/exams">Pregled upisanih ispita</Link>
                 </li>
                 <li>
                   <Link to="/register-exam">Prijava ispita</Link>
-                </li>
-                <li>
-                  <Link to="/exams">Odjava ispita</Link>
                 </li>
               </ul>
             )}

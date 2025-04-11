@@ -1,6 +1,7 @@
 ﻿using DatabaseContext;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Services.Exam
 {
@@ -105,7 +106,34 @@ namespace Services.Exam
                 }
             }
             return studentExams;
-           
+        }
+
+        public async Task<List<StudentExamsDTO>> GetAllStudentExams(int StudentId)
+        {
+            var studentSubjects = await database.StudentSubjects.Where(q => q.StudentId == StudentId).Select(s => s.SubjectId).ToListAsync();
+
+            var subjects = await database.Subjects.Where(q => studentSubjects.Contains(q.Id)).ToListAsync();
+
+            List <StudentExamsDTO> AllExams = new List<StudentExamsDTO>();
+
+            foreach (var studentSubject in subjects) {
+            var exams = await database.Exams.Where(q => q.SubjectId == studentSubject.Id).OrderBy(o => o.DeadlineDate).ToListAsync();
+                if (exams.Count > 0)
+                {
+                    foreach (var exam in exams) {
+                        AllExams.Add(new StudentExamsDTO
+                        {
+                            SubjectId = studentSubject.Id,
+                            SubjectName = studentSubject.Subject,
+                            ExamId = exam.Id,
+                            ApplicationsDate = exam.ApplicationsDate,
+                            DeadlineDate = exam.DeadlineDate,
+                            CheckOutDate = exam.CheckOutDate,
+                        });
+                     }
+                }
+            }
+            return AllExams;           
         }
     }
 }
