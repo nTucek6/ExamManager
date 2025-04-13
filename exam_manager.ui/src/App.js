@@ -16,6 +16,7 @@ import CheckStudentRole from "./utilities/CheckStudentRole.js";
 import ProfessorExams from "./pages/Professor/ProfessorExams/ProfessorExams.js";
 import ExamStudents from "./pages/Professor/ExamStudents/ExamStudents.js";
 import AllExams from "./pages/Student/AllExams/AllExams.js";
+import Scheduler from "./components/Scheduler";
 
 function App() {
   return (
@@ -30,9 +31,11 @@ function App() {
 
             {/* Student routes */}
             <Route element={<CheckStudentRole />}>
-            <Route path="/exams" element={<Exams />} />
-            <Route path="/register-exam" element={<ExamRegistration />} />
-            <Route path="/all-exams" element={<AllExams />} />
+              <Route path="/scheduler" element={<Scheduler />} />
+
+              <Route path="/exams" element={<Exams />} />
+              <Route path="/register-exam" element={<ExamRegistration />} />
+              <Route path="/all-exams" element={<AllExams />} />
             </Route>
 
             {/* Professor routes */}

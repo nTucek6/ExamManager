@@ -48,6 +48,8 @@ export default function Navbar() {
                 <li>
                   <span>Hello, {username}</span> {/* Greet the user */}
                 </li>
+                <Link to="/scheduler">Raspored ispita</Link>
+
                 <li>
                   <button
                     className="change-password-button"
