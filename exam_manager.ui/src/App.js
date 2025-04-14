@@ -17,6 +17,7 @@ import ProfessorExams from "./pages/Professor/ProfessorExams/ProfessorExams.js";
 import ExamStudents from "./pages/Professor/ExamStudents/ExamStudents.js";
 import AllExams from "./pages/Student/AllExams/AllExams.js";
 import Scheduler from "./components/Scheduler";
+import About from "./pages/About/About.js";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
           {/* Navbar is parent because of maintainability */}
           <Route path="/" element={<Navbar />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/about" element={<About />} />
+
             <Route path="/change-password" element={<ChangePasswordPage />} />
 
             {/* Student routes */}
