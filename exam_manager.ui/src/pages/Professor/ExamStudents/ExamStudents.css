@@ -1,21 +1,55 @@
-
-#student-exam-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+#student-exam-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px;
+  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
 }
 
-#student-exam-container > ul{
-    list-style: none;
-    padding: 10px;
-    margin-right: 5px;
+#student-exam-container > ul {
+  list-style: none;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+  width: 280px;
+  transition: transform 0.2s ease;
 }
 
-#student-exam-container ul > li:first-child
-{
-    margin-bottom: 10px;
+#student-exam-container > ul:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.15);
 }
 
-#student-exam-container > ul:last-child{
-    margin-right: 0;
+#student-exam-container ul > li {
+  margin-bottom: 8px;
+  color: #343a40;
+}
+
+#student-exam-container ul > li:first-child {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #007bff;
+  margin-bottom: 12px;
+}
+
+#student-exam-container > ul:last-child {
+  margin-right: 0;
+}
+
+#student-exam-container button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#student-exam-container button:hover {
+  background-color: #0056b3;
 }
