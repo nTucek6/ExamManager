@@ -46,7 +46,7 @@ export default function Navbar() {
             {isAuthenticated ? (
               <>
                 <li>
-                  <span>Hello, {username}</span> {/* Greet the user */}
+                  <span>Hello, {username} 👋</span> {/* Greet the user */}
                 </li>
                 <Link to="/scheduler">Raspored ispita</Link>
 
