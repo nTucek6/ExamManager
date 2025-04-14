@@ -1,23 +1,43 @@
-/* Exams.css */
+/* ---------------------- EXAMS ---------------------- */
 
-#exam-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+#exam-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px;
+  margin-left: auto; /* ako sidebar postoji */
 }
 
-#exam-container > ul{
-    list-style: none;
-    border: 1px solid black;
-    padding: 20px;
-    margin-right: 5px;
+#exam-container > ul {
+  list-style: none;
+  background-color: #f8f9fa;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  padding: 20px 25px;
+  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#exam-container ul > li:first-child
-{
-    margin-bottom: 10px;
+#exam-container > ul:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 123, 255, 0.2);
 }
 
-#exam-container > ul:last-child{
-    margin-right: 0;
+#exam-container ul > li:first-child {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #007bff;
+  font-size: 1.1rem;
+}
+
+#exam-container ul > li {
+  padding: 5px 0;
+  color: #343a40;
+}
+
+/* Remove margin on last UL if needed */
+#exam-container > ul:last-child {
+  margin-right: 0;
 }

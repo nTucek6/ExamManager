@@ -55,12 +55,14 @@ export default function Navbar() {
                     className="change-password-button"
                     onClick={handleChangePassword}
                   >
-                    Change Password
+                    <li>
+                      <Link to="/change-password">Promjena zaporke</Link>
+                    </li>
                   </button>
                 </li>
                 <li>
                   <button className="logout-button" onClick={handleLogout}>
-                    Logout
+                    Odjava
                   </button>
                 </li>
               </>
