@@ -1,6 +1,7 @@
 ﻿using DatabaseContext;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace Services.ProfessorExam
 {
@@ -45,21 +46,27 @@ namespace Services.ProfessorExam
 
         public async Task CreateExamPeriod(NewExamDTO newExamDTO)
         {
-            DateTime ApplicationDate = new DateTime(newExamDTO.DeadlineDate.Year,newExamDTO.DeadlineDate.Month,newExamDTO.DeadlineDate.Day, 23, 59, 00).AddDays(APPLICATION_DATE_SUBTRACTER).ToUniversalTime();
-            DateTime CheckOutDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, 23, 59, 00).AddDays(CHECKOUT_DATE_SUBTRACTER).ToUniversalTime();
-            DateTime DeadlineDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, newExamDTO.DeadlineDate.Hour, newExamDTO.DeadlineDate.Minute, newExamDTO.DeadlineDate.Second).AddDays(CHECKOUT_DATE_SUBTRACTER).ToUniversalTime();
-
-
-            await database.Exams.AddAsync(
-                new ExamsEntity
+            try
             {
-                SubjectId = newExamDTO.SubjectId,
-                ExamLocation = newExamDTO.ExamLocation,
-                DeadlineDate = DeadlineDate,
-                ApplicationsDate = ApplicationDate,
-                CheckOutDate = CheckOutDate,
-            });
-            await database.SaveChangesAsync();
+                DateTime ApplicationDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, 23, 59, 00).AddDays(APPLICATION_DATE_SUBTRACTER).ToUniversalTime();
+                DateTime CheckOutDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, 23, 59, 00).AddDays(CHECKOUT_DATE_SUBTRACTER).ToUniversalTime();
+                DateTime DeadlineDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, newExamDTO.DeadlineDate.Hour, newExamDTO.DeadlineDate.Minute, newExamDTO.DeadlineDate.Second).AddDays(CHECKOUT_DATE_SUBTRACTER).ToUniversalTime();
+
+                await database.Exams.AddAsync(
+                    new ExamsEntity
+                    {
+                        SubjectId = newExamDTO.SubjectId,
+                        ExamLocation = newExamDTO.ExamLocation,
+                        DeadlineDate = DeadlineDate,
+                        ApplicationsDate = ApplicationDate,
+                        CheckOutDate = CheckOutDate,
+                    });
+                await database.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+            }
         }
         public async Task UpdateExamPeriod(NewExamDTO exam)
         {

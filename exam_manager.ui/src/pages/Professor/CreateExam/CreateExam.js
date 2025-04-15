@@ -104,7 +104,7 @@ export default function CreateExam() {
         <div className="form-group">
           <label>Unesite datum i vrijeme ispita</label>
           <input
-            type="date"
+            type="datetime-local"
             value={examDate || ""}
             onChange={(d) => setExamDate(d.target.value)}
             className="form-input"
