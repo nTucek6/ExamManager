@@ -2,6 +2,8 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Services.Exam
 {
@@ -108,11 +110,19 @@ namespace Services.Exam
             return studentExams;
         }
 
-        public async Task<List<StudentExamsDTO>> GetAllStudentExams(int StudentId)
+        public async Task<List<StudentExamsDTO>> GetAllStudentExams(int StudentId, string? Search)
         {
+            Expression<Func<SubjectsEntity, bool>> predicate = x => true;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                predicate = x => x.Subject.ToLower().Contains(Search.ToLower().Trim());
+            }
+
+
             var studentSubjects = await database.StudentSubjects.Where(q => q.StudentId == StudentId).Select(s => s.SubjectId).ToListAsync();
 
-            var subjects = await database.Subjects.Where(q => studentSubjects.Contains(q.Id)).ToListAsync();
+            var subjects = await database.Subjects.Where(q => studentSubjects.Contains(q.Id)).Where(predicate).ToListAsync();
 
             List <StudentExamsDTO> AllExams = new List<StudentExamsDTO>();
 

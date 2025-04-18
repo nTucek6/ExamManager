@@ -29,6 +29,37 @@ export default function Navbar() {
 
   const handleChangePassword = () => {};
 
+  const UserNavigationContainer = () => {
+    if (userRole === "Professor") {
+      return (
+        <ul className="nav-links sidebar-links">
+          <li>
+            <Link to="/exams-professor">Pregled ispitnih rokova</Link>
+          </li>
+          <li>
+            <Link to="/create-exam">Dodaj ispitni rok</Link>
+          </li>
+        </ul>
+      );
+    } else if (userRole === "Admin") {
+      return;
+    } else {
+      return (
+        <ul className="nav-links sidebar-links">
+          <li>
+            <Link to="/all-exams">Pregled svih rokova</Link>
+          </li>
+          <li>
+            <Link to="/exams">Pregled upisanih ispita</Link>
+          </li>
+          <li>
+            <Link to="/register-exam">Prijava ispita</Link>
+          </li>
+        </ul>
+      );
+    }
+  };
+
   return (
     <>
       <nav className="navbar">
@@ -36,42 +67,43 @@ export default function Navbar() {
           <Link to="/" className="logo">
             Examio
           </Link>
-          <ul className="nav-links">
-            <li>
-              <Link to="/">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            {isAuthenticated ? (
-              <>
-                <li>
-                  <span>Hello, {username} 👋</span> {/* Greet the user */}
-                </li>
-                <Link to="/scheduler">Raspored ispita</Link>
-
-                <li>
-                  <button
-                    className="change-password-button"
-                    onClick={handleChangePassword}
-                  >
-                    <li>
-                      <Link to="/change-password">Promjena zaporke</Link>
-                    </li>
-                  </button>
-                </li>
-                <li>
-                  <button className="logout-button" onClick={handleLogout}>
-                    Odjava
-                  </button>
-                </li>
-              </>
-            ) : (
+          {userRole !== "Admin" && (
+            <ul className="nav-links">
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/">Raspored ispita</Link>
               </li>
-            )}
-          </ul>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              {isAuthenticated ? (
+                <>
+                  <li>
+                    <span>Dobrodošli, {username} 👋</span>{" "}
+                    {/* Greet the user */}
+                  </li>
+                  <li>
+                    <button
+                      className="change-password-button"
+                      onClick={handleChangePassword}
+                    >
+                      <li>
+                        <Link to="/change-password">Promjena zaporke</Link>
+                      </li>
+                    </button>
+                  </li>
+                  <li>
+                    <button className="logout-button" onClick={handleLogout}>
+                      Odjava
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              )}
+            </ul>
+          )}
         </div>
       </nav>
       {isAuthenticated ? (

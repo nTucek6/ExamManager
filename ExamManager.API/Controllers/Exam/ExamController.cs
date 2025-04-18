@@ -40,9 +40,9 @@ namespace ExamManager.API.Controllers.Exam
             return Ok(exams);
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllStudentExams(int StudentId)
+        public async Task<IActionResult> GetAllStudentExams(int StudentId, string? Search)
         {
-            var exams = await _examService.GetAllStudentExams(StudentId);
+            var exams = await _examService.GetAllStudentExams(StudentId, Search);
             return Ok(exams);
         }
 

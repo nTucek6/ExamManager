@@ -18,6 +18,8 @@ import ExamStudents from "./pages/Professor/ExamStudents/ExamStudents.js";
 import AllExams from "./pages/Student/AllExams/AllExams.js";
 import Scheduler from "./components/Scheduler";
 import About from "./pages/About/About.js";
+import HomePageAdmin from "./pages/Admin/HomePage/HomePageAdmin.js";
+import CheckAdminRole from "./utilities/CheckAdminRole.js";
 
 function App() {
   return (
@@ -27,15 +29,13 @@ function App() {
         <Route element={<CheckUserLogin />}>
           {/* Navbar is parent because of maintainability */}
           <Route path="/" element={<Navbar />}>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Scheduler />} />
             <Route path="/about" element={<About />} />
 
             <Route path="/change-password" element={<ChangePasswordPage />} />
 
             {/* Student routes */}
             <Route element={<CheckStudentRole />}>
-              <Route path="/scheduler" element={<Scheduler />} />
-
               <Route path="/exams" element={<Exams />} />
               <Route path="/register-exam" element={<ExamRegistration />} />
               <Route path="/all-exams" element={<AllExams />} />
@@ -48,7 +48,14 @@ function App() {
               <Route path="/exam-students/:id" element={<ExamStudents />} />
             </Route>
           </Route>
+
+          {/* Admin routes */}
+          <Route element={<CheckAdminRole />}>
+            <Route path="/admin" element={<HomePageAdmin />} />
+          </Route>
+          
         </Route>
+
         {/* If user is logged in, restrict these routes */}
         <Route element={<LimitedRoutes />}>
           <Route path="/login" element={<Login />} />

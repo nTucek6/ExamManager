@@ -3,6 +3,8 @@ import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 const STUDENT_CONTROLLER = process.env.REACT_APP_API_STUDENT_CONTROLLER;
 
+let controller = null;
+
 const studentExamService = {
   getStudentExams: async (StudentId) => {
     try {
@@ -45,7 +47,7 @@ const studentExamService = {
         headers: { "Content-Type": "application/json" },
         params: {
           ExamId: ExamId,
-          StudentId:StudentId,
+          StudentId: StudentId,
         },
       });
       const data = response;
@@ -71,8 +73,13 @@ const studentExamService = {
       return error.response.data;
     }
   },
-  
-  getAllStudentExams: async (StudentId) => {
+
+  getAllStudentExams: async (StudentId, Search) => {
+    if (controller) {
+      controller.abort();
+    }
+    controller = new AbortController();
+
     try {
       const response = await axios({
         method: "get",
@@ -80,12 +87,20 @@ const studentExamService = {
         headers: { "Content-Type": "application/json" },
         params: {
           StudentId: StudentId,
+          Search: Search,
         },
+        signal: controller.signal,
       });
-      const data = response;
-      return data;
+
+
+
+        const data = response;
+        return data;
+      
     } catch (error) {
-      return error.response.data;
+      console.log(error);
+      //return error.response.data;
+      return error
     }
   },
 };

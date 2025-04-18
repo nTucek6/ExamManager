@@ -1,0 +1,9 @@
+.search-container{
+    display: flex;
+    justify-content: center;
+}
+
+.search-field{
+    height: 40px;
+    width:300px;
+}

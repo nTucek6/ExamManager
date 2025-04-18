@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { format } from "date-fns";
+import { ToastContainer } from "react-toastify";
+import ToastInfo from "../../../components/toastInfo";
 
 import Select from "react-select";
 import { BarLoader } from "react-spinners";
@@ -11,6 +13,7 @@ import "./CreateExam.css";
 
 export default function CreateExam() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [subject, setSubject] = useState();
   const [location, setLocation] = useState("");
@@ -35,7 +38,7 @@ export default function CreateExam() {
 
     setSubject(subjects.find((find) => find.value === data.SubjectId));
     setLocation(data.ExamLocation);
-    setExamDate(format(new Date(data.DeadlineDate), "yyyy-MM-dd"));
+    setExamDate(format(new Date(data.DeadlineDate), "yyyy-MM-dd'T'HH:mm"));
     setLoading(false);
   };
 
@@ -64,10 +67,13 @@ export default function CreateExam() {
 
     if (id) {
       examService.updateExam(examData);
+      ToastInfo("Ispit uspješno ažuriran!");
     } else {
       examService.createExamPeriod(examData);
+      ToastInfo("Ispit uspješno dodan!")
     }
     clearForm();
+    navigate('/create-exam', { replace: true });
   };
 
   const handleChange = (option) => {
@@ -90,6 +96,7 @@ export default function CreateExam() {
             value={subject}
             onChange={handleChange}
             placeholder="Odaberite predmet:"
+            required
           />
         </div>
         <div className="form-group">
@@ -99,6 +106,7 @@ export default function CreateExam() {
             value={location || ""}
             onChange={(d) => setLocation(d.target.value)}
             className="form-input"
+            required
           />
         </div>
         <div className="form-group">
@@ -108,6 +116,7 @@ export default function CreateExam() {
             value={examDate || ""}
             onChange={(d) => setExamDate(d.target.value)}
             className="form-input"
+            required
           />
         </div>
 
@@ -123,6 +132,7 @@ export default function CreateExam() {
           </button>
         )}
       </form>
+      <ToastContainer />
     </div>
   );
 }

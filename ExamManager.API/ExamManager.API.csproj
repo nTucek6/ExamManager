@@ -29,7 +29,9 @@
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\ExamManager.Configuration\ExamManager.Configuration.csproj" />
     <ProjectReference Include="..\ExamManager.Extensions\ExamManager.Extensions.csproj" />
+    <ProjectReference Include="..\Services.AdminActions\Services.AdminActions.csproj" />
     <ProjectReference Include="..\Services.Authentication\Services.Authentication.csproj" />
+    <ProjectReference Include="..\Services.EmailSender\Services.EmailSender.csproj" />
     <ProjectReference Include="..\Services.Exam\Services.Exam.csproj" />
     <ProjectReference Include="..\Services.ProfessorExam\Services.ProfessorExam.csproj" />
   </ItemGroup>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { ClipLoader } from "react-spinners";
 import "./ProfessorExams.css";
+import { ToastContainer } from "react-toastify";
+import ToastInfo from "../../../components/toastInfo";
 
 import examService from "../../../services/examService";
 import { useNavigate } from "react-router";
@@ -33,6 +35,7 @@ export default function ProfessorExams() {
 
   const handleDelete = async (id) => {
    await examService.deleteExamPeriod(id);
+   ToastInfo("Ispit uspješno obrisan!");
    fetchData();
   }
 
@@ -67,6 +70,7 @@ export default function ProfessorExams() {
       ) : (
         <h1>Profesor trenutno nije kreirao ispitni rok!</h1>
       )}
+      <ToastContainer />
     </div>
   );
 }

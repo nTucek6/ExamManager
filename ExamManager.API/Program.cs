@@ -1,8 +1,12 @@
 using DatabaseContext;
+using ExamManager.API.Services;
 using ExamManager.Configuration;
 using ExamManager.Extensions;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Services.AdminActions;
 using Services.Authentication;
+using Services.EmailSender;
 using Services.Exam;
 using Services.ProfessorExam;
 
@@ -48,6 +52,11 @@ builder.Services.AddTransient<Middleware>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IExamService, ExamService>();
 builder.Services.AddTransient<IProfessorExamService, ProfessorExamService>();
+builder.Services.AddTransient<IAdminActionsService, AdminActionsService>();
+builder.Services.AddTransient<IEmailSenderService, EmailSenderService>();
+
+
+builder.Services.AddHostedService<SendEmailTimer>();
 
 
 var app = builder.Build();

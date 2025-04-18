@@ -32,6 +32,7 @@ export default function Login() {
       sessionStorage.setItem("email", jwtDecode(result.data).Email);
       sessionStorage.setItem("userId", jwtDecode(result.data).Id);
       sessionStorage.setItem("role", jwtDecode(result.data).Role);
+      
       navigate("/");
       const token = sessionStorage.getItem("token");
       if (token) {

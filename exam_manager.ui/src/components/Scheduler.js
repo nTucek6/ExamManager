@@ -10,6 +10,7 @@ import {
 } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import studentExamService from "../services/studentExamService";
+import examService from "../services/examService";
 import "./Scheduler.css";
 
 // Ovdje mozemo na hrv postaviti ali neka bude na EN za sada
@@ -30,11 +31,22 @@ export default function Scheduler() {
   const [view, setView] = useState("month");
   const [currentDate, setCurrentDate] = useState(new Date());
 
+  const fetchData = async () => {
+    const role = sessionStorage.getItem("role");
+    const userId = Number(sessionStorage.getItem("userId"));
+
+    if (role === "Student") {
+      return await studentExamService.getStudentExams(userId);
+    } else if (role === "Professor") {
+      return await examService.getProfesorExams(userId);
+    }
+
+    return [];
+  };
+
   const fetchEvents = async () => {
     try {
-      const result = await studentExamService.getStudentExams(
-        Number(sessionStorage.getItem("userId"))
-      );
+      const result = await fetchData();
 
       const mappedEvents = result.data.map((exam) => ({
         title: exam.SubjectName,
