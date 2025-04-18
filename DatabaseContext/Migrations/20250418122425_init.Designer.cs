@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatabaseContext.Migrations
 {
     [DbContext(typeof(ExamManagerContext))]
-    [Migration("20250326141108_StudentSubjectsTable")]
-    partial class StudentSubjectsTable
+    [Migration("20250418122425_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,10 @@ namespace DatabaseContext.Migrations
 
                     b.Property<DateTime>("DeadlineDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ExamLocation")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("SubjectId")
                         .HasColumnType("integer");
