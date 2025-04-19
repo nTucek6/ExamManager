@@ -5,6 +5,7 @@ using ExamManager.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Services.EmailSender;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -16,11 +17,14 @@ namespace Services.Authentication
     {
         private readonly ExamManagerContext database;
 
+        private readonly IEmailSenderService emailSenderService;
+
         private readonly JwtConfiguration jwtConfig;
 
-        public AuthenticationService(ExamManagerContext databaseContext, IOptionsMonitor<JwtConfiguration> jwtConfiguration) { 
+        public AuthenticationService(ExamManagerContext databaseContext, IOptionsMonitor<JwtConfiguration> jwtConfiguration, IEmailSenderService emailSenderService) { 
             database = databaseContext;
             jwtConfig = jwtConfiguration.CurrentValue;
+            this.emailSenderService = emailSenderService;
         }
 
         public async Task<string> Register(RegisterUserDTO user)
@@ -68,11 +72,11 @@ namespace Services.Authentication
                 Id = userDb.Id,
                 Email = userDb.Email,
                 Role = userDb.RoleId,
-            });
+            }, false);
             return token;
         }
 
-        private string GenerateToken(GenerateToken user)
+        private string GenerateToken(GenerateToken user, bool useExpires)
         {
             // generate token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -86,9 +90,12 @@ namespace Services.Authentication
                     new Claim("Email", user.Email),
                     new Claim("Role", user.Role.ToString()),
                 }),
-                //Expires = DateTime.UtcNow.AddDays(jwtConfig.AccessTokenExpiration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            if(useExpires)
+            {
+                tokenDescriptor.Expires = DateTime.UtcNow.AddHours(jwtConfig.AccessTokenExpiration);
+            }
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
@@ -126,6 +133,36 @@ namespace Services.Authentication
             await database.SaveChangesAsync();
         }
 
+        public async Task<bool> SendPasswordRestartEmail(string Email)
+        {
+            var user = await database.Users.Where(q => q.Email == Email).FirstOrDefaultAsync();
+            if(user != null)
+            {
+                var token = GenerateToken(new GenerateToken
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Role = user.RoleId,
+                }, true);
+
+                string Subject = "Examio: Restart password";
+                string Message = $"<h4>Here is your restart link for Examio: <h4><a href='http://localhost:3000/restart-password/{token}' target='_blank' >click here</a>";
+                await emailSenderService.SendEmail(user.Email, Subject, Message);
+                return true;
+            }
+            return false;
+        }
+
+        public async Task RestartPassword(int userId, RestartPasswordDTO changePassword)
+        {
+            var user = await database.Users.FindAsync(userId);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            user.PasswordHash = GenerateHash(changePassword.Password);
+            await database.SaveChangesAsync();
+        }
 
     }
 }

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DatabaseContext\DatabaseContext.csproj" />
     <ProjectReference Include="..\ExamManager.Configuration\ExamManager.Configuration.csproj" />
+    <ProjectReference Include="..\Services.EmailSender\Services.EmailSender.csproj" />
   </ItemGroup>
 
 </Project>

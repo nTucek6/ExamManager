@@ -74,6 +74,56 @@ namespace ExamManager.API.Controllers.Authentication
             return 0;
         }
 
+        private int ValidateToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var userIdClaim = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "Id");
+
+            if (jwtToken.ValidTo < DateTime.UtcNow)
+            {
+                return 0;
+            }
+
+            if (userIdClaim == null)
+                return 0;
+
+            if (int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return userId;
+            }
+            return 0;
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SendPasswordRestartEmail(string Email)
+        {
+            bool success = await _authenticationService.SendPasswordRestartEmail(Email);
+            return Ok(success);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RestartPassword([FromBody] RestartPasswordDTO restartPassword)
+        {
+            try
+            {
+                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                int userId = ValidateToken(token);
+
+                if (userId == 0) {
+                    return Unauthorized("Invalid token");
+                }
+
+                await _authenticationService.RestartPassword(userId, restartPassword);
+
+                return Ok("Password restarted successfully");
+
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }           
+        }
+
 
     }
 }

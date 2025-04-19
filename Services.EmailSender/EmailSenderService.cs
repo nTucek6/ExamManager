@@ -11,8 +11,8 @@ namespace Services.EmailSender
 
         private readonly string smtpServer = "smtp.ethereal.email";
         private readonly int smtpPort = 587;
-        private readonly string smtpUser = "selmer30@ethereal.email";
-        private readonly string smtpPass = "BmFBRr6sbwJszPdzVS";
+        private readonly string smtpUser = "ardella.jaskolski59@ethereal.email";
+        private readonly string smtpPass = "z9ZN5tUHDfD5R6xCH5";
 
         private readonly string subject = "Obavijest o ispitu za sutra iz predmeta: ";
 
@@ -42,10 +42,10 @@ namespace Services.EmailSender
 
                         string header = subject + subjectDb.Subject;
 
-                        string message = $"Poštovani {student.Name}" +
-                            $"\n\n Sutra se održava ispit iz predmeta: {subjectDb.Subject} u {examDb.DeadlineDate}." +
-                            $"\n\nIspit će se održati na lokaciji: {examDb.ExamLocation}" +
-                            $"\n\n S poštovanjem.";
+                        string message = $"<h3>Poštovani {student.Name},</h3></br>" +
+                            $"<p>Sutra se održava ispit iz predmeta: {subjectDb.Subject} u {examDb.DeadlineDate}.</p>" +
+                            $"<p>Ispit će se održati na lokaciji: {examDb.ExamLocation}</p>" +
+                            $"</br><h4>S poštovanjem.</h4>";
 
                         await SendEmail(student.Email, header, message);
                     }
@@ -61,7 +61,7 @@ namespace Services.EmailSender
             mail.To.Add(toEmail);
             mail.Subject = subject;
             mail.Body = message;
-            mail.IsBodyHtml = true; // Set false if you're sending plain text
+            mail.IsBodyHtml = true;
 
             using (var smtpClient = new SmtpClient(smtpServer, smtpPort))
             {

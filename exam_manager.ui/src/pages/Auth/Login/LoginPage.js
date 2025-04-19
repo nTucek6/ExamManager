@@ -82,25 +82,25 @@ export default function Login() {
             onChange={(d) => setEmail(d.target.value)}
             name="email"
             autoComplete="email"
-            placeholder="Enter your email"
+            placeholder="Unesite Email:"
             className="form-input"
           />
           <span className="form-error">{formErrors.Email}</span>
         </div>
         <div className="form-group">
-          <label>Password:</label>
+          <label>Lozinka:</label>
           <input
             type="password"
             onChange={(d) => setPassword(d.target.value)}
             name="password"
             autoComplete="current-password"
-            placeholder="Enter your password"
+            placeholder="Unesite lozinku:"
             className="form-input"
           />
           <span className="form-error">{formErrors.Password}</span>
         </div>
         <div className="form-group form-link">
-          <Link to="" id="forgot-password">
+          <Link to="/forgot-password" id="forgot-password">
             Zaboravili ste lozinku?
           </Link>
           <Link to="/register">Nemate račun - registrirajte se ovdje</Link>
@@ -110,7 +110,7 @@ export default function Login() {
           <BarLoader />
         ) : (
           <button type="submit" className="form-button">
-            Login
+            Prijava
           </button>
         )}
       </form>

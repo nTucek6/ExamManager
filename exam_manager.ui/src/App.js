@@ -20,6 +20,8 @@ import Scheduler from "./components/Scheduler";
 import About from "./pages/About/About.js";
 import HomePageAdmin from "./pages/Admin/HomePage/HomePageAdmin.js";
 import CheckAdminRole from "./utilities/CheckAdminRole.js";
+import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPasswordPage.js";
+import RestartPassword from "./pages/Auth/RestartPassword/RestartPassword.js";
 
 function App() {
   return (
@@ -60,6 +62,8 @@ function App() {
         <Route element={<LimitedRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/restart-password/:token" element={<RestartPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>
