@@ -144,9 +144,15 @@ namespace Services.Authentication
                     Email = user.Email,
                     Role = user.RoleId,
                 }, true);
-
                 string Subject = "Examio: Restart password";
-                string Message = $"<h4>Here is your restart link for Examio: <h4><a href='http://localhost:3000/restart-password/{token}' target='_blank' >click here</a>";
+                var resetLink = $"http://localhost:3000/restart-password/{Uri.EscapeDataString(token)}";
+                var Message = $@"
+                            <html>
+                                <body>
+                                <p>Kliknite na priloženi link kako biste ponovno postavili lozinku za Examio:</p>
+                                <a href='{resetLink}' target='_blank' rel='noopener noreferrer'>Ovdje</a>
+                                </body>
+                            </html>";
                 await emailSenderService.SendEmail(user.Email, Subject, Message);
                 return true;
             }
