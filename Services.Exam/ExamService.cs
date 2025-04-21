@@ -18,30 +18,36 @@ namespace Services.Exam
 
         public async Task<List<StudentExamsDTO>> GetStudentExams(int StudentId)
         {
-            var exams = await database.ExamRegistrations.Where(w => w.StudentId == StudentId).ToListAsync();
+            List<StudentExamsDTO> studentExams = await database.ExamRegistrations.Join(database.Exams, examReg => examReg.ExamId, exam => exam.Id, (examReg, exam) => new
+            {
+                examReg, exam
+            }).Join(database.Subjects, combined => combined.exam.SubjectId, subject => subject.Id, (combined, subject) => new
+            {
+                ExamId = combined.exam.Id,
+                combined.exam.ExamLocation,
+                combined.exam.DeadlineDate,
+                combined.exam.ApplicationsDate,
+                combined.exam.CheckOutDate,
+                SubjectId = subject.Id,
+                SubjectName = subject.Subject,
+                combined.examReg.StudentId,
+            })    
+            .Where(q => q.StudentId == StudentId && q.DeadlineDate.Date >= DateTime.Now.Date.ToUniversalTime())
+            .Select(s => new StudentExamsDTO 
+            {
+                ExamId = s.ExamId,
+                SubjectId = s.SubjectId,
+                SubjectName = s.SubjectName,
+                DeadlineDate = s.DeadlineDate,
+                ApplicationsDate = s.ApplicationsDate,
+                CheckOutDate = s.CheckOutDate,
+                Location = s.ExamLocation,
 
-            List<StudentExamsDTO> studentExams = new List<StudentExamsDTO>();
+            }).ToListAsync();
 
-            foreach (var e in exams) { 
-
-                var exam = await database.Exams.Where(w=> w.Id == e.ExamId && w.DeadlineDate.Date >= DateTime.Now.Date.ToUniversalTime()).FirstOrDefaultAsync();
-                if(exam != null)
-                {
-                    var subject = await database.Subjects.Where(w => w.Id == exam.SubjectId).FirstOrDefaultAsync();
-
-                    studentExams.Add(new StudentExamsDTO {
-                        ExamId = exam.Id,
-                        SubjectId = subject.Id,
-                        SubjectName = subject.Subject,
-                        DeadlineDate = exam.DeadlineDate,
-                        ApplicationsDate = exam.ApplicationsDate,
-                        CheckOutDate = exam.CheckOutDate,
-                        Location = exam.ExamLocation,
-                    });
-                }
-            }
             return studentExams;
         }
+
 
         public async Task RegisterStudentExam(RegisterExamDTO studentRegisterDTO)
         {
