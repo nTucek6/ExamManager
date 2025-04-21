@@ -15,8 +15,16 @@ export default function Exams() {
     const result = await studentExamService.getStudentExams(
       Number(sessionStorage.getItem("userId"))
     );
+    const today = new Date();
+    const initializedItems = result.data.map((item) => {
+      const CheckOutDate = new Date(item.CheckOutDate);
+      return {
+        ...item,
+        Disabled: CheckOutDate < today,
+      };
+    });
 
-    setStudentExams(result.data);
+    setStudentExams(initializedItems);
     setLoading(false);
   };
 
@@ -50,6 +58,7 @@ export default function Exams() {
           studentExams.map((exam) => (
             <ul key={exam.ExamId}>
               <li>{exam.SubjectName}</li>
+              <li>Lokacija: {exam.Location}</li>
               <li>
                 Datum roka:{" "}
                 {format(new Date(exam.DeadlineDate), "dd.MM.yyyy HH:mm:ss")}
@@ -64,6 +73,8 @@ export default function Exams() {
               </li>
               <button
                 type="button"
+                disabled={exam.Disabled}
+                className={exam.Disabled && "disabled_exam_button"}
                 onClick={() => handleDeleteExam(exam.ExamId)}
               >
                 Odjavi ispit

@@ -36,7 +36,7 @@ export default function Login() {
       navigate("/");
       const token = sessionStorage.getItem("token");
       if (token) {
-        console.log(jwtDecode(token));
+        //console.log(jwtDecode(token));
       }
     } else if (result.status === 500) {
       setIsLoginCompleted(false);

@@ -17,7 +17,17 @@ export default function ProfessorExams() {
     const result = await examService.getProfesorExams(
       Number(sessionStorage.getItem("userId"))
     );
-    setProfessoerExams(result.data);
+
+    const today = new Date();
+    const initializedItems = result.data.map((item) => {
+      const CheckOutDate = new Date(item.CheckOutDate);
+      return {
+        ...item,
+        Disabled: CheckOutDate < today,
+      };
+    });
+
+    setProfessoerExams(initializedItems);
     setLoading(false);
   };
 
@@ -30,14 +40,14 @@ export default function ProfessorExams() {
   };
 
   const handleShowStudents = (id) => {
-     navigate(`/exam-students/${id}`);
-  }
+    navigate(`/exam-students/${id}`);
+  };
 
   const handleDelete = async (id) => {
-   await examService.deleteExamPeriod(id);
-   ToastInfo("Ispit uspješno obrisan!");
-   fetchData();
-  }
+    await examService.deleteExamPeriod(id);
+    ToastInfo("Ispit uspješno obrisan!");
+    fetchData();
+  };
 
   return (
     <div id="exam-container">
@@ -61,9 +71,28 @@ export default function ProfessorExams() {
                 Odjave do:{" "}
                 {format(new Date(exam.CheckOutDate), "dd.MM.yyyy HH:mm:ss")}
               </li>
-              <button type="button" onClick={()=>handleShowStudents(exam.ExamId)}>Prikaz upisanih studenta</button>
-              <button type="button" onClick={()=> handleEdit(exam.ExamId)}>Uredi ispitni rok</button>
-              <button type="button" onClick={()=> handleDelete(exam.ExamId)}>Obriši</button>
+              <button
+                type="button"
+                onClick={() => handleShowStudents(exam.ExamId)}
+              >
+                Prikaz upisanih studenta
+              </button>
+              <button
+                type="button"
+                disabled={exam.Disabled}
+                className={exam.Disabled && "disabled_exam_button"}
+                onClick={() => handleEdit(exam.ExamId)}
+              >
+                Uredi ispitni rok
+              </button>
+              <button
+                type="button"
+                disabled={exam.Disabled}
+                className={exam.Disabled && "disabled_exam_button"}
+                onClick={() => handleDelete(exam.ExamId)}
+              >
+                Obriši
+              </button>
             </ul>
           );
         })

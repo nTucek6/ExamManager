@@ -41,3 +41,10 @@
 #exam-container > ul:last-child {
   margin-right: 0;
 }
+
+
+.disabled_exam_button {
+  opacity: 0.5;
+  transition: none !important;
+  cursor: default !important;
+}

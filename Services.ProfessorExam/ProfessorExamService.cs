@@ -24,7 +24,7 @@ namespace Services.ProfessorExam
             List<ProfessorExamsDTO> exams = new List<ProfessorExamsDTO>();
 
             foreach (var subject in subjects) {
-              List<ExamsEntity> examsDb = await database.Exams.Where(q => q.SubjectId == subject.Id).ToListAsync();
+              List<ExamsEntity> examsDb = await database.Exams.Where(q => q.SubjectId == subject.Id).OrderBy(o => o.DeadlineDate).ToListAsync();
 
                 if (examsDb.Count > 0) {
                     foreach (var exam in examsDb) {
@@ -50,7 +50,7 @@ namespace Services.ProfessorExam
             {
                 DateTime ApplicationDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, 23, 59, 00).AddDays(APPLICATION_DATE_SUBTRACTER).ToUniversalTime();
                 DateTime CheckOutDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, 23, 59, 00).AddDays(CHECKOUT_DATE_SUBTRACTER).ToUniversalTime();
-                DateTime DeadlineDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, newExamDTO.DeadlineDate.Hour, newExamDTO.DeadlineDate.Minute, newExamDTO.DeadlineDate.Second).AddDays(CHECKOUT_DATE_SUBTRACTER).ToUniversalTime();
+                DateTime DeadlineDate = new DateTime(newExamDTO.DeadlineDate.Year, newExamDTO.DeadlineDate.Month, newExamDTO.DeadlineDate.Day, newExamDTO.DeadlineDate.Hour, newExamDTO.DeadlineDate.Minute, newExamDTO.DeadlineDate.Second).ToUniversalTime();
 
                 await database.Exams.AddAsync(
                     new ExamsEntity

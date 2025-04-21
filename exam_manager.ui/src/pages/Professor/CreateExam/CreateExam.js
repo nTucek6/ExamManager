@@ -15,6 +15,8 @@ export default function CreateExam() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const today = new Date().toISOString().slice(0, 16);
+
   const [subject, setSubject] = useState();
   const [location, setLocation] = useState("");
   const [examDate, setExamDate] = useState("");
@@ -116,6 +118,7 @@ export default function CreateExam() {
             value={examDate || ""}
             onChange={(d) => setExamDate(d.target.value)}
             className="form-input"
+            min={today}
             required
           />
         </div>

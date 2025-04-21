@@ -50,6 +50,7 @@ export default function AllExams() {
             return (
               <ul key={exam.ExamId}>
                 <li>{exam.SubjectName}</li>
+                <li>Lokacija: {exam.Location}</li>
                 <li>
                   Datum roka:{" "}
                   {format(new Date(exam.DeadlineDate), "dd.MM.yyyy HH:mm:ss")}

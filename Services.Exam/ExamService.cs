@@ -24,7 +24,7 @@ namespace Services.Exam
 
             foreach (var e in exams) { 
 
-                var exam = await database.Exams.Where(w=> w.Id == e.ExamId).FirstOrDefaultAsync();
+                var exam = await database.Exams.Where(w=> w.Id == e.ExamId && w.DeadlineDate.Date >= DateTime.Now.Date.ToUniversalTime()).FirstOrDefaultAsync();
                 if(exam != null)
                 {
                     var subject = await database.Subjects.Where(w => w.Id == exam.SubjectId).FirstOrDefaultAsync();
@@ -36,6 +36,7 @@ namespace Services.Exam
                         DeadlineDate = exam.DeadlineDate,
                         ApplicationsDate = exam.ApplicationsDate,
                         CheckOutDate = exam.CheckOutDate,
+                        Location = exam.ExamLocation,
                     });
                 }
             }
@@ -81,12 +82,15 @@ namespace Services.Exam
             // Return exams that student has registered for exclude
             var registeredExams = await database.ExamRegistrations.Where(q => q.StudentId == StudentId).Select(s => s.ExamId).ToListAsync();
 
-            List<int> subjectsToExcludeId = await database.Exams.Where(q => registeredExams.Contains(q.Id)).Select(s => s.SubjectId).Distinct().ToListAsync();
+          
+            List<int> subjectsToExcludeId = await database.Exams.Where(q => registeredExams.Contains(q.Id) 
+            && q.DeadlineDate.Date >= DateTime.Now.Date.ToUniversalTime())
+                .Select(s => s.SubjectId).Distinct().ToListAsync();
 
             // Get subjects that student is registered for
             var studentSubjects = await database.StudentSubjects.Where(q => q.StudentId == StudentId && !subjectsToExcludeId.Contains(q.SubjectId)).Select(s => s.SubjectId).ToListAsync();
 
-            var examsToRegister = await database.Exams.Where(q => studentSubjects.Contains(q.SubjectId)).ToListAsync();
+            var examsToRegister = await database.Exams.Where(q => studentSubjects.Contains(q.SubjectId) && q.ApplicationsDate >= DateTime.Now.Date.ToUniversalTime()).ToListAsync();
 
             List<StudentExamsDTO> studentExams = new List<StudentExamsDTO>();
 
@@ -104,6 +108,7 @@ namespace Services.Exam
                         DeadlineDate = exam.DeadlineDate,
                         ApplicationsDate = exam.ApplicationsDate,
                         CheckOutDate = exam.CheckOutDate,
+                        Location = exam.ExamLocation,
                     });
                 }
             }
@@ -139,6 +144,7 @@ namespace Services.Exam
                             ApplicationsDate = exam.ApplicationsDate,
                             DeadlineDate = exam.DeadlineDate,
                             CheckOutDate = exam.CheckOutDate,
+                            Location = exam.ExamLocation,
                         });
                      }
                 }
