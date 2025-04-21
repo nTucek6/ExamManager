@@ -49,6 +49,67 @@ namespace Services.Exam
         }
 
 
+      /*  public async Task<List<StudentExamsDTO>> GetStudentExams(int StudentId)
+        {
+            var exams = await database.ExamRegistrations.Where(w => w.StudentId == StudentId).ToListAsync();
+
+            List<StudentExamsDTO> studentExams = new List<StudentExamsDTO>();
+
+            foreach (var e in exams)
+            {
+                List<StudentExamsDTO> studentExams = await database.ExamRegistrations.Join(database.Exams, examReg => examReg.ExamId, exam => exam.Id, (examReg, exam) => new
+                {
+                    examReg,
+                    exam
+                }).Join(database.Subjects, combined => combined.exam.SubjectId, subject => subject.Id, (combined, subject) => new
+                {
+                    ExamId = combined.exam.Id,
+                    combined.exam.ExamLocation,
+                    combined.exam.DeadlineDate,
+                    combined.exam.ApplicationsDate,
+                    combined.exam.CheckOutDate,
+                    SubjectId = subject.Id,
+                    SubjectName = subject.Subject,
+                    combined.examReg.StudentId,
+                })
+                .Where(q => q.StudentId == StudentId && q.DeadlineDate.Date >= DateTime.Now.Date.ToUniversalTime())
+                .Select(s => new StudentExamsDTO
+                {
+                    ExamId = s.ExamId,
+                    SubjectId = s.SubjectId,
+                    SubjectName = s.SubjectName,
+                    DeadlineDate = s.DeadlineDate,
+                    ApplicationsDate = s.ApplicationsDate,
+                    CheckOutDate = s.CheckOutDate,
+                    Location = s.ExamLocation,
+
+                    var exam = await database.Exams.Where(w => w.Id == e.ExamId && w.DeadlineDate.Date >= DateTime.Now.Date.ToUniversalTime()).FirstOrDefaultAsync();
+                    if (exam != null)
+                {
+                    var subject = await database.Subjects.Where(w => w.Id == exam.SubjectId).FirstOrDefaultAsync();
+                }).ToListAsync();
+
+                studentExams.Add(new StudentExamsDTO
+                {
+                    ExamId = exam.Id,
+                    SubjectId = subject.Id,
+                    SubjectName = subject.Subject,
+                    DeadlineDate = exam.DeadlineDate,
+                    ApplicationsDate = exam.ApplicationsDate,
+                    CheckOutDate = exam.CheckOutDate,
+                    Location = exam.ExamLocation,
+                });
+            }
+        }
+             return studentExams;
+         }
+
+        */
+
+
+
+
+
         public async Task RegisterStudentExam(RegisterExamDTO studentRegisterDTO)
         {
             var checkForExam = await database.ExamRegistrations.Where(q => q.ExamId == studentRegisterDTO.ExamId && q.StudentId == studentRegisterDTO.StudentId).FirstOrDefaultAsync();
@@ -130,6 +191,52 @@ namespace Services.Exam
                 predicate = x => x.Subject.ToLower().Contains(Search.ToLower().Trim());
             }
 
+            List<StudentExamsDTO> AllExams = await database.StudentSubjects
+                .Join(database.Subjects.Where(predicate), studentSubject => studentSubject.SubjectId, subject => subject.Id, (studentSubject, subject) => new { studentSubject, subject })
+                .Join(database.Exams, combine => combine.subject.Id, exam => exam.SubjectId, (combine, exam) => new
+                {
+                    combine.studentSubject.StudentId,
+                    combine.studentSubject.SubjectId,
+                    SubjectName = combine.subject.Subject,
+                    ExamId = exam.Id,
+                    exam.ApplicationsDate,
+                    exam.DeadlineDate,
+                    exam.CheckOutDate,
+                    Location = exam.ExamLocation,
+                    combine.subject.Semester,
+                })
+                .Where(q => q.StudentId == StudentId)
+                .Select(s =>
+                new StudentExamsDTO
+                {
+                    SubjectId = s.SubjectId,
+                    SubjectName = s.SubjectName,
+                    ExamId = s.ExamId,
+                    ApplicationsDate = s.ApplicationsDate,
+                    DeadlineDate = s.DeadlineDate,
+                    CheckOutDate = s.CheckOutDate,
+                    Location = s.Location,
+                    Semester = s.Semester,
+                })
+                .OrderBy(o => o.Semester)
+                .ThenBy(o => o.SubjectName)
+                .ThenBy(o => o.DeadlineDate)
+                .ToListAsync();
+
+            return AllExams;
+
+        }
+     
+
+     /*   public async Task<List<StudentExamsDTO>> GetAllStudentExams(int StudentId, string? Search)
+        {
+            Expression<Func<SubjectsEntity, bool>> predicate = x => true;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                predicate = x => x.Subject.ToLower().Contains(Search.ToLower().Trim());
+            }
+
 
             var studentSubjects = await database.StudentSubjects.Where(q => q.StudentId == StudentId).Select(s => s.SubjectId).ToListAsync();
 
@@ -156,6 +263,6 @@ namespace Services.Exam
                 }
             }
             return AllExams;           
-        }
+        } */
     }
 }

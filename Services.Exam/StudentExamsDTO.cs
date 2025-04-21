@@ -9,5 +9,6 @@
         public DateTime DeadlineDate { get; set; }
         public DateTime ApplicationsDate { get; set; }
         public DateTime CheckOutDate { get; set; }
+        public int? Semester {  get; set; }
     }
 }
